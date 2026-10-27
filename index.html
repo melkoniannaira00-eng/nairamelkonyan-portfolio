@@ -5,709 +5,716 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#211712">
-<meta name="description" content="Naira Melkonyan — Shopify Developer and Web Designer based in Yerevan, Armenia. Explore my Shopify projects, web development skills and design work.">
-<title>Naira Melkonyan — Shopify Developer & Web Designer</title>
+<meta name="description" content="Naira Melkonyan — Shopify Developer and Web Designer based in Yerevan, Armenia.">
+<title>Naira Melkonyan | Shopify Developer & Web Designer</title>
 
 <style>
 :root {
-  --brown: #211712;
-  --brown-light: #35271f;
-  --cream: #f5f1eb;
+  --bg: #f5f1ea;
   --paper: #fffdf9;
-  --gold: #b49a80;
-  --muted: #817267;
-  --line: rgba(33,23,18,.17);
+  --dark: #211712;
+  --brown: #71513b;
+  --muted: #81776d;
+  --line: #ded5c9;
+  --accent: #c7a47b;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: Arial, Helvetica, sans-serif;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
-  background: var(--cream);
-  color: var(--brown);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.65;
-  overflow-x: hidden;
+  margin: 0;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: var(--sans);
+  line-height: 1.6;
 }
 a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-.container { width: min(1180px, 90%); margin: auto; }
+img, video { display: block; max-width: 100%; }
+button, input, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.container { width: min(1180px, 90%); margin-inline: auto; }
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--brown);
+  font-weight: 700;
+}
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, .serif { font-family: var(--serif); font-weight: 400; }
+h2 { font-size: clamp(38px, 5vw, 66px); line-height: 1.05; letter-spacing: -.04em; }
+.section { padding: 110px 0; }
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 42px;
+}
+.section-heading p { max-width: 360px; color: var(--muted); margin-bottom: 5px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 22px;
+  border: 1px solid var(--dark);
+  background: var(--dark);
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: .15em;
+  transition: .25s ease;
+  cursor: pointer;
+}
+.btn:hover { background: transparent; color: var(--dark); }
+.btn-light { background: transparent; color: var(--dark); }
+.btn-light:hover { background: var(--dark); color: white; }
 
+/* HEADER */
 header {
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: rgba(245,241,235,.94);
+  z-index: 100;
+  background: rgba(245,241,234,.94);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(33,23,18,.1);
 }
 .nav {
   min-height: 76px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 24px;
 }
-.logo {
-  font-family: Georgia, serif;
-  font-size: 18px;
-  letter-spacing: 2px;
-  white-space: nowrap;
-}
-.nav-links { display: flex; gap: 25px; align-items: center; }
+.logo { font-family: var(--serif); font-size: 24px; letter-spacing: -.06em; }
+.logo span { color: var(--brown); }
+.nav-links { display: flex; gap: 27px; align-items: center; }
 .nav-links a {
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 10px;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  transition: opacity .25s;
+  color: #51463c;
 }
-.nav-links a:hover { opacity: .55; }
-
+.nav-links a:hover { color: #a2764e; }
 .menu-toggle {
   display: none;
-  border: 1px solid var(--line);
-  color: var(--brown);
-  background: transparent;
-  padding: 9px 12px;
+  background: none;
+  border: 0;
+  color: var(--dark);
+  font-size: 25px;
   cursor: pointer;
 }
 
-.hero {
-  min-height: 690px;
+/* HERO */
+.hero { padding: 65px 0 85px; overflow: hidden; }
+.hero-grid {
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
+  grid-template-columns: 1.05fr .95fr;
   align-items: center;
-  gap: 65px;
-  padding-top: 85px;
-  padding-bottom: 85px;
+  gap: clamp(35px, 7vw, 100px);
 }
-.eyebrow, .section-label {
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+.hero-copy { padding: 20px 0; }
 .hero h1 {
-  margin: 26px 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(48px, 6.7vw, 86px);
-  line-height: 1.04;
-  letter-spacing: -3px;
-  font-weight: 400;
+  font-size: clamp(54px, 7.8vw, 105px);
+  line-height: .94;
+  letter-spacing: -.065em;
+  margin: 25px 0;
 }
-.hero h1 em, h2 em { color: #a78a70; font-weight: 400; }
-.hero-copy {
-  max-width: 490px;
-  color: #6f6056;
+.hero h1 em { color: var(--brown); font-weight: 400; }
+.hero-description {
+  max-width: 450px;
+  color: var(--muted);
   font-size: 15px;
   margin-bottom: 30px;
 }
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  padding: 15px 22px;
-  background: var(--brown);
-  color: var(--cream);
-  border: 1px solid var(--brown);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 10px;
-  transition: .25s;
-}
-.button:hover { background: transparent; color: var(--brown); }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-meta {
-  margin-top: 35px;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
   display: flex;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
-  font-size: 11px;
-  color: var(--muted);
 }
-.portrait-column { max-width: 420px; width: 100%; justify-self: end; }
-.portrait-frame {
-  position: relative;
-  padding: 0 0 18px 18px;
-}
-.portrait-frame:before {
-  content: "";
-  position: absolute;
-  inset: 18px 18px 0 0;
-  border: 1px solid #b9a18a;
-}
+.hero-meta strong { display: block; font-family: var(--serif); font-size: 22px; font-weight: 400; }
+.hero-meta span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.portrait-wrap { position: relative; max-width: 490px; justify-self: end; width: 100%; }
 .portrait {
-  position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center;
-  background: #e4d9cc;
+  background: #e2d7c9;
 }
-.portrait-caption {
+.portrait-frame {
+  position: absolute;
+  inset: 16px -16px -16px 16px;
+  border: 1px solid var(--accent);
+  z-index: -1;
+}
+.portrait-note {
+  position: absolute;
+  bottom: 24px;
+  left: -30px;
+  background: var(--paper);
+  padding: 16px 22px;
+  box-shadow: 0 10px 35px #21171212;
+}
+.portrait-note small { display: block; color: var(--muted); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+.portrait-note strong { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+
+/* MARQUEE */
+.marquee { background: var(--dark); color: #f5f1ea; overflow: hidden; padding: 17px 0; }
+.marquee-track {
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-  gap: 12px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 9px;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track span {
+  padding: 0 25px;
+  font-family: var(--serif);
+  font-size: 20px;
+  white-space: nowrap;
+}
+.marquee-track b { color: var(--accent); font-weight: 400; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+.about-label { padding-top: 10px; }
+.about-copy h2 { margin: 16px 0 25px; }
+.about-copy p { color: var(--muted); max-width: 680px; }
+.language-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
+.pill {
+  border: 1px solid var(--line);
+  border-radius: 50px;
+  padding: 8px 13px;
+  font-size: 11px;
+  background: rgba(255,255,255,.35);
 }
 
-section { padding: 100px 0; }
-.about {
-  background: var(--brown);
-  color: var(--cream);
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: 85px;
-}
-.about h2, .section-heading h2, .contact h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(39px, 5.5vw, 67px);
-  line-height: 1.12;
-  font-weight: 400;
-  letter-spacing: -1.5px;
-  margin-top: 20px;
-}
-.about .section-label { color: var(--gold); }
-.about-copy p {
-  color: #d5c8bc;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-.language-line {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #ffffff25;
-  color: #e5d8cb;
-  font-size: 12px;
-}
-.language-line span { color: var(--gold); }
-
-.skills-section { background: var(--cream); }
-.section-heading { max-width: 700px; margin-bottom: 55px; }
-.section-heading h2 { margin-bottom: 20px; }
-.section-heading > p:last-child { max-width: 560px; color: #71635a; font-size: 14px; }
-
+/* SKILLS */
+.skills-section { background: var(--paper); }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 18px;
-}
-.skill-group {
-  padding: 29px;
-  border: 1px solid var(--line);
-  background: rgba(255,253,249,.42);
-  transition: background .3s, transform .3s;
-}
-.skill-group:hover { background: var(--paper); transform: translateY(-3px); }
-.skill-group-head {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-  margin-bottom: 8px;
-}
-.skill-number { color: #a58b75; font-size: 11px; letter-spacing: 1px; }
-.skill-group h3 {
-  font-family: Georgia, serif;
-  font-weight: 400;
-  font-size: 25px;
-  line-height: 1.3;
-}
-.skill-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(33,23,18,.08);
-  font-size: 12px;
-  color: #5f5046;
-  transition: padding .2s, color .2s;
-}
-.skill-item:last-child { border-bottom: 0; }
-.skill-item span:last-child { color: #b49a80; }
-.skill-item:hover { padding-left: 5px; color: var(--brown); }
-
-.skills-footnote {
-  margin-top: 25px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.projects-section { background: #eae2d8; }
-.projects-section .section-heading { margin-bottom: 45px; }
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 42px 25px;
-}
-.project-card { min-width: 0; display: block; }
-.project-image {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: #d8cabc;
-}
-.project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform .65s cubic-bezier(.2,.7,.2,1);
-}
-.project-card:hover .project-image img { transform: scale(1.045); }
-
-.image-fallback {
-  display: none;
-  position: absolute;
-  inset: 0;
-  padding: 25px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  color: var(--cream);
-  background:
-    radial-gradient(ellipse at 75% 15%, #6b4e3a 0, transparent 35%),
-    linear-gradient(135deg, #211712, #594334);
-}
-.image-fallback strong {
-  font-family: Georgia, serif;
-  font-size: clamp(27px, 4vw, 48px);
-  font-weight: 400;
-}
-.image-fallback small {
-  margin-top: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-size: 9px;
-  color: #d4bda5;
-}
-.project-view {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  padding: 12px 15px;
-  color: var(--brown);
-  background: var(--cream);
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: .3s;
-}
-.project-card:hover .project-view { opacity: 1; transform: none; }
-.project-info { padding-top: 20px; }
-.project-category {
-  color: #91765e;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-.project-info h3 {
-  margin: 8px 0;
-  font-family: Georgia, serif;
-  font-size: 31px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-.project-info p { color: #71635a; font-size: 12px; }
-.project-open {
-  display: inline-block;
-  margin-top: 15px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--brown);
-  font-size: 9px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-}
-
-.contact {
-  background: var(--brown);
-  color: var(--cream);
-  text-align: center;
-}
-.contact .section-label { color: var(--gold); }
-.contact h2 { margin: 20px 0; }
-.contact-copy {
-  max-width: 500px;
-  margin: 0 auto 28px;
-  color: #d5c8bc;
-  font-size: 14px;
-}
-.contact .button { background: var(--cream); color: var(--brown); }
-.contact .button:hover { background: transparent; color: var(--cream); border-color: var(--cream); }
-.contact-email { margin-top: 20px; font-size: 12px; color: #d5c8bc; }
-
-footer {
-  background: var(--brown);
-  color: #c8b9aa;
-  border-top: 1px solid #ffffff20;
-  padding: 24px 0;
-  font-size: 10px;
-}
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
-
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .7s ease, transform .7s ease;
+.skill-card {
+  padding: 24px 20px;
+  border: 1px solid var(--line);
+  min-height: 150px;
+  transition: transform .25s, background .25s, border-color .25s;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.skill-card:hover { transform: translateY(-5px); background: var(--bg); border-color: var(--accent); }
+.skill-icon {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  margin-bottom: 23px;
+  font-family: var(--serif);
+  color: var(--brown);
+  font-size: 16px;
+}
+.skill-card h3 { font-size: 14px; margin-bottom: 5px; }
+.skill-card p { font-size: 11px; color: var(--muted); margin-bottom: 0; }
 
+/* SERVICES */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.service-card { border-top: 1px solid var(--line); padding: 25px 15px 20px 0; }
+.service-number { font-family: var(--serif); font-size: 14px; color: var(--brown); }
+.service-card h3 { font-family: var(--serif); font-size: 25px; font-weight: 400; margin: 20px 0 10px; }
+.service-card p { font-size: 13px; color: var(--muted); }
+
+/* PROJECTS */
+.projects-section { background: #eae2d7; }
+.projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 25px; }
+.project-card { min-width: 0; }
+.project-image {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #d7c8b7;
+  aspect-ratio: 1.2 / 1;
+}
+.project-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .7s ease;
+}
+.project-card:hover .project-image img { transform: scale(1.045); }
+.project-image::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent,rgba(20,13,9,.55));
+  pointer-events: none;
+}
+.project-overlay {
+  position: absolute;
+  z-index: 2;
+  bottom: 20px; left: 22px; right: 22px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+}
+.project-overlay strong { font-family: var(--serif); font-size: clamp(23px,3vw,35px); font-weight: 400; }
+.project-overlay span { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.project-info { display: flex; justify-content: space-between; align-items: start; gap: 15px; padding: 17px 0 27px; }
+.project-info p { color: var(--muted); font-size: 12px; margin: 5px 0 0; }
+.project-info h3 { font-size: 14px; margin: 0; }
+.project-tags { display: flex; flex-wrap: wrap; justify-content: end; gap: 6px; }
+.project-tags span { font-size: 9px; padding: 5px 8px; border: 1px solid #cfc2b3; white-space: nowrap; }
+
+/* VIDEO SHOWCASE */
+.video-section { background: var(--dark); color: var(--bg); }
+.video-section .eyebrow { color: var(--accent); }
+.video-section .section-heading p { color: #c4b6a8; }
+.video-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+.video-card { min-width: 0; }
+.video-frame {
+  aspect-ratio: 16 / 10;
+  background: #382a21;
+  position: relative;
+  overflow: hidden;
+}
+.video-frame video { width: 100%; height: 100%; object-fit: cover; }
+.video-caption { padding: 15px 0 25px; display: flex; justify-content: space-between; gap: 15px; align-items: center; }
+.video-caption h3 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin: 0; }
+.video-caption span { color: #c4b6a8; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.video-note { color: #c4b6a8; font-size: 12px; margin-top: 12px; }
+
+/* PROCESS */
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.process-step { border-top: 1px solid var(--line); padding-top: 20px; }
+.process-step span { color: var(--brown); font-family: var(--serif); font-size: 17px; }
+.process-step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; margin: 17px 0 9px; }
+.process-step p { font-size: 12px; color: var(--muted); }
+
+/* CONTACT */
+.contact-section { background: #e8dfd3; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.contact-copy h2 { margin: 15px 0 25px; }
+.contact-copy > p { max-width: 400px; color: var(--muted); }
+.contact-detail { margin-top: 30px; }
+.contact-detail small { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: .15em; color: var(--muted); }
+.contact-detail a { display: inline-block; margin-top: 4px; font-family: var(--serif); font-size: 20px; overflow-wrap: anywhere; }
+.contact-form { display: grid; gap: 17px; }
+.form-field { display: grid; gap: 7px; }
+.form-field label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.form-field input, .form-field textarea {
+  width: 100%;
+  background: rgba(255,255,255,.45);
+  border: 1px solid #cfc3b4;
+  border-radius: 0;
+  padding: 14px;
+  color: var(--dark);
+  outline: none;
+}
+.form-field input:focus, .form-field textarea:focus { border-color: var(--brown); }
+.form-field textarea { min-height: 125px; resize: vertical; }
+.form-status { font-size: 12px; color: var(--brown); }
+
+/* FOOTER */
+footer { background: var(--dark); color: var(--bg); padding: 30px 0; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.footer-logo { font-family: var(--serif); font-size: 23px; }
+.footer-copy { font-size: 10px; color: #c4b6a8; }
+.footer-links { display: flex; gap: 18px; font-size: 10px; color: #c4b6a8; }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
 
-@media (max-width: 800px) {
-  .hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding: 65px 0; }
-  .portrait-column { justify-self: start; max-width: 460px; }
-  .about-grid { grid-template-columns: 1fr; gap: 28px; }
-  .skills-grid { grid-template-columns: 1fr; }
-  section { padding: 75px 0; }
-  .nav { min-height: 68px; }
-  .nav-links { gap: 15px; }
+/* RESPONSIVE */
+@media (max-width: 850px) {
+  .section { padding: 80px 0; }
+  .hero-grid { gap: 40px; }
+  .hero h1 { font-size: clamp(50px,8vw,75px); }
+  .skills-grid { grid-template-columns: repeat(3,1fr); }
+  .about-grid, .contact-grid { gap: 40px; }
+  .process-grid { grid-template-columns: repeat(2,1fr); row-gap: 30px; }
+  .nav-links { gap: 16px; }
   .nav-links a { font-size: 9px; }
 }
-
-@media (max-width: 560px) {
-  .nav { flex-wrap: wrap; padding: 15px 0; }
-  .logo { font-size: 15px; }
+@media (max-width: 620px) {
+  .container { width: 88%; }
+  .section { padding: 68px 0; }
+  .nav { min-height: 66px; }
   .menu-toggle { display: block; }
   .nav-links {
     display: none;
-    width: 100%;
+    position: absolute;
+    top: 66px; left: 0; right: 0;
+    padding: 22px 6%;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0;
-    padding: 5px 0 10px;
   }
   .nav-links.open { display: flex; }
-  .nav-links a { display: block; padding: 11px 0; font-size: 11px; }
-  .hero h1 { font-size: clamp(43px, 12vw, 65px); letter-spacing: -1.8px; }
-  .project-grid { grid-template-columns: 1fr; gap: 35px; }
-  .project-view { opacity: 1; transform: none; }
-  .skill-group { padding: 23px 19px; }
-  .skill-group h3 { font-size: 22px; }
-  .footer-inner { flex-direction: column; }
+  .nav-links a { padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+  .hero { padding: 40px 0 65px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+  .hero h1 { font-size: clamp(55px,15vw,82px); }
+  .hero-description { font-size: 14px; }
+  .portrait-wrap { width: 88%; justify-self: center; margin-right: 12px; }
+  .portrait-note { left: -15px; bottom: 15px; padding: 12px 16px; }
+  .hero-meta { gap: 22px; margin-top: 35px; }
+  .section-heading { display: block; margin-bottom: 30px; }
+  .section-heading p { margin-top: 15px; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
+  .skills-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+  .skill-card { padding: 17px 14px; min-height: 135px; }
+  .skill-icon { margin-bottom: 16px; }
+  .services-grid { grid-template-columns: 1fr; gap: 10px; }
+  .service-card { padding: 20px 0; }
+  .service-card h3 { margin: 12px 0 7px; }
+  .projects-grid, .video-grid { grid-template-columns: 1fr; gap: 10px; }
+  .project-image { aspect-ratio: 1 / 1; }
+  .project-info { flex-direction: column; }
+  .project-tags { justify-content: start; }
+  .video-frame { aspect-ratio: 16 / 10; }
+  .process-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px 15px; }
+  .process-step h3 { font-size: 20px; }
+  .contact-grid { gap: 25px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="container nav">
-    <a class="logo" href="#home">NAIRA MELKONYAN</a>
-    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">MENU ☰</button>
-    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+    <a href="#home" class="logo">Naira<span>.</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="navLinks">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
+      <a href="#services">Services</a>
       <a href="#projects">Projects</a>
+      <a href="#showcase">Videos</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="container hero" id="home">
-    <div class="reveal">
-      <p class="eyebrow">Shopify Developer · Web Designer</p>
-      <h1>Digital design<br>with <em>intention.</em></h1>
-      <p class="hero-copy">
-        I create elegant e-commerce experiences and thoughtful websites,
-        combining visual storytelling, clean layouts and functional design.
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Shopify Developer · Web Designer</div>
+      <h1>Digital craft.<br><em>Timeless</em> design.</h1>
+      <p class="hero-description">
+        I create elegant, responsive Shopify experiences and modern websites
+        that bring brands to life through thoughtful design and clean code.
       </p>
-      <a class="button" href="#projects">Explore my work <span>↗</span></a>
+      <div class="hero-actions">
+        <a class="btn" href="#projects">Explore my work ↗</a>
+        <a class="btn btn-light" href="#contact">Let's connect</a>
+      </div>
       <div class="hero-meta">
-        <span>Based in Yerevan, Armenia</span>
-        <span>Available for new projects</span>
+        <div><strong>Shopify</strong><span>Development</span></div>
+        <div><strong>Web</strong><span>Design</span></div>
+        <div><strong>Yerevan</strong><span>Armenia</span></div>
       </div>
     </div>
-
-    <div class="portrait-column reveal">
-      <div class="portrait-frame">
-        <img
-          class="portrait"
-          src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/photo_2026-10-27_06-21-14.jpg?v=1793108562"
-          alt="Portrait of Naira Melkonyan"
-          onerror="this.style.display='none';document.getElementById('portraitFallback').style.display='flex';"
-        >
-        <div id="portraitFallback" class="image-fallback" style="display:none;position:absolute;inset:0 18px 18px 18px">
-          <strong>Naira<br>Melkonyan</strong>
-          <small>Shopify Developer & Web Designer</small>
-        </div>
-      </div>
-      <div class="portrait-caption">
-        <span>Independent creative</span>
-        <span>Yerevan · Armenia</span>
+    <div class="portrait-wrap reveal">
+      <img class="portrait"
+        src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/photo_2026-10-27_06-21-14.jpg?v=1793108562"
+        alt="Naira Melkonyan"
+        onerror="this.style.display='none'; this.parentElement.style.background='#d7c8b7'; this.parentElement.style.aspectRatio='4/5';">
+      <div class="portrait-frame"></div>
+      <div class="portrait-note">
+        <small>Creative mind · Digital world</small>
+        <strong>Designed with intention.</strong>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="about" id="about">
-    <div class="container about-grid">
-      <div class="reveal">
-        <p class="section-label">01 / About me</p>
-        <h2>A thoughtful approach to <em>digital.</em></h2>
-      </div>
-      <div class="about-copy reveal">
-        <p>
-          I'm Naira Melkonyan, a Shopify Developer and Web Designer based
-          in Yerevan, Armenia. I enjoy building distinctive online stores
-          and creating digital experiences with a refined visual identity.
-        </p>
-        <p>
-          My design interests include editorial layouts, considered
-          typography, elegant product presentation and user-friendly
-          e-commerce experiences.
-        </p>
-        <p>
-          I continue to develop my technical and creative skills through
-          hands-on projects, experimentation and learning.
-        </p>
-        <div class="language-line">
-          <span>LANGUAGES —</span> Armenian · English · French · Russian
-        </div>
-      </div>
+<div class="marquee" aria-label="Areas of expertise">
+  <div class="marquee-track">
+    <span>Shopify Development <b>✳</b></span><span>Web Design <b>✳</b></span>
+    <span>Creative Direction <b>✳</b></span><span>E-commerce <b>✳</b></span>
+    <span>Responsive Design <b>✳</b></span><span>Shopify Development <b>✳</b></span>
+    <span>Web Design <b>✳</b></span><span>Creative Direction <b>✳</b></span>
+    <span>E-commerce <b>✳</b></span><span>Responsive Design <b>✳</b></span>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-label reveal">
+      <div class="eyebrow">01 / A little about me</div>
     </div>
-  </section>
-
-  <section class="skills-section" id="skills">
-    <div class="container">
-      <div class="section-heading reveal">
-        <p class="section-label">02 / What I do</p>
-        <h2>Skills & <em>expertise.</em></h2>
-        <p>
-          A growing collection of tools, skills and creative disciplines
-          across Shopify, web development and digital design.
-        </p>
-      </div>
-
-      <div class="skills-grid">
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">01</span><h3>Web Development</h3></div>
-          <div class="skill-item"><span>HTML5</span><span>↗</span></div>
-          <div class="skill-item"><span>CSS3</span><span>↗</span></div>
-          <div class="skill-item"><span>JavaScript</span><span>↗</span></div>
-          <div class="skill-item"><span>Responsive Web Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Mobile-First Layouts</span><span>↗</span></div>
-          <div class="skill-item"><span>CSS Animations</span><span>↗</span></div>
-          <div class="skill-item"><span>Interactive UI Elements</span><span>↗</span></div>
-          <div class="skill-item"><span>Cross-Device Testing</span><span>↗</span></div>
-        </article>
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">02</span><h3>Shopify Development</h3></div>
-          <div class="skill-item"><span>Shopify Store Setup</span><span>↗</span></div>
-          <div class="skill-item"><span>Theme Customization</span><span>↗</span></div>
-          <div class="skill-item"><span>Shopify Theme Editor</span><span>↗</span></div>
-          <div class="skill-item"><span>Custom Liquid Sections</span><span>↗</span></div>
-          <div class="skill-item"><span>Product Page Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Collection Page Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Landing Page Creation</span><span>↗</span></div>
-          <div class="skill-item"><span>Shopify App Integration</span><span>↗</span></div>
-          <div class="skill-item"><span>Store Navigation</span><span>↗</span></div>
-          <div class="skill-item"><span>Storefront Customization</span><span>↗</span></div>
-        </article>
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">03</span><h3>UI / UX Design</h3></div>
-          <div class="skill-item"><span>User Interface Design</span><span>↗</span></div>
-          <div class="skill-item"><span>UX Fundamentals</span><span>↗</span></div>
-          <div class="skill-item"><span>Visual Hierarchy</span><span>↗</span></div>
-          <div class="skill-item"><span>Typography & Layout</span><span>↗</span></div>
-          <div class="skill-item"><span>Color Theory</span><span>↗</span></div>
-          <div class="skill-item"><span>Website Navigation</span><span>↗</span></div>
-          <div class="skill-item"><span>Responsive Interfaces</span><span>↗</span></div>
-          <div class="skill-item"><span>E-commerce UX</span><span>↗</span></div>
-        </article>
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">04</span><h3>Visual & Creative Design</h3></div>
-          <div class="skill-item"><span>Luxury-Inspired Web Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Editorial Website Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Hero Banner Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Product Presentation</span><span>↗</span></div>
-          <div class="skill-item"><span>Visual Storytelling</span><span>↗</span></div>
-          <div class="skill-item"><span>Image-Based Layouts</span><span>↗</span></div>
-          <div class="skill-item"><span>Landing Page Layouts</span><span>↗</span></div>
-          <div class="skill-item"><span>Micro-Interactions</span><span>↗</span></div>
-        </article>
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">05</span><h3>E-commerce</h3></div>
-          <div class="skill-item"><span>Online Store Structure</span><span>↗</span></div>
-          <div class="skill-item"><span>Product Catalog Organization</span><span>↗</span></div>
-          <div class="skill-item"><span>Product & Collection Layouts</span><span>↗</span></div>
-          <div class="skill-item"><span>Promotional Landing Pages</span><span>↗</span></div>
-          <div class="skill-item"><span>Product-Focused Design</span><span>↗</span></div>
-          <div class="skill-item"><span>Online Store Customization</span><span>↗</span></div>
-        </article>
-
-        <article class="skill-group reveal">
-          <div class="skill-group-head"><span class="skill-number">06</span><h3>Tools & Workflow</h3></div>
-          <div class="skill-item"><span>Shopify Admin</span><span>↗</span></div>
-          <div class="skill-item"><span>Shopify Code Editor</span><span>↗</span></div>
-          <div class="skill-item"><span>GitHub</span><span>↗</span></div>
-          <div class="skill-item"><span>GitHub Pages</span><span>↗</span></div>
-          <div class="skill-item"><span>Browser Developer Tools</span><span>↗</span></div>
-          <div class="skill-item"><span>Image Optimization</span><span>↗</span></div>
-          <div class="skill-item"><span>Website Testing</span><span>↗</span></div>
-        </article>
-
-      </div>
-      <p class="skills-footnote">Continuously learning, experimenting and refining my craft.</p>
-    </div>
-  </section>
-
-  <section class="projects-section" id="projects">
-    <div class="container">
-      <div class="section-heading reveal">
-        <p class="section-label">03 / Selected work</p>
-        <h2>Projects with a <em>point of view.</em></h2>
-        <p>A selection of Shopify stores and landing page projects.</p>
-      </div>
-
-      <div class="project-grid">
-
-        <a class="project-card reveal" href="https://naira-melqonyan-a461x7a1.myshopify.com/" target="_blank" rel="noopener noreferrer">
-          <div class="project-image">
-            <img src="assets/images/maison-bag.jpg" alt="Maison Bag Shopify storefront screenshot"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="image-fallback">
-              <strong>MAISON BAG</strong>
-              <small>Luxury bags · Shopify store</small>
-            </div>
-            <span class="project-view">VIEW PROJECT ↗</span>
-          </div>
-          <div class="project-info">
-            <span class="project-category">SHOPIFY STORE · LUXURY FASHION</span>
-            <h3>Maison Bag</h3>
-            <p>A luxury-inspired online store for designer bags and accessories.</p>
-            <span class="project-open">Explore project ↗</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/the-private-sale" target="_blank" rel="noopener noreferrer">
-          <div class="project-image">
-            <img src="assets/images/private-sale.jpg" alt="The Private Sale landing page screenshot"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="image-fallback">
-              <strong>THE PRIVATE SALE</strong>
-              <small>Luxury sale · Landing page</small>
-            </div>
-            <span class="project-view">VIEW PROJECT ↗</span>
-          </div>
-          <div class="project-info">
-            <span class="project-category">LANDING PAGE · LUXURY</span>
-            <h3>The Private Sale</h3>
-            <p>A focused landing page concept for exclusive luxury offers.</p>
-            <span class="project-open">Explore project ↗</span>
-          </div>
-        </a>
-
-        <a class="project-card reveal" href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/limited-offers" target="_blank" rel="noopener noreferrer">
-          <div class="project-image">
-            <img src="assets/images/limited-offers.jpg" alt="Limited Offers Shopify page screenshot"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="image-fallback">
-              <strong>LIMITED OFFERS</strong>
-              <small>Promotional design · Shopify</small>
-            </div>
-            <span class="project-view">VIEW PROJECT ↗</span>
-          </div>
-          <div class="project-info">
-            <span class="project-category">SHOPIFY PAGE · PROMOTIONAL DESIGN</span>
-            <h3>Limited Offers</h3>
-            <p>A promotional page concept for selected products and special offers.</p>
-            <span class="project-open">Explore project ↗</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="container reveal">
-      <p class="section-label">04 / Get in touch</p>
-      <h2>Let's create something<br><em>meaningful.</em></h2>
-      <p class="contact-copy">
-        Have a project in mind or want to collaborate?
-        I'd love to hear from you.
+    <div class="about-copy reveal">
+      <h2>Design with purpose.<br><em>Build with care.</em></h2>
+      <p>
+        I'm Naira Melkonyan, a Shopify Developer and Web Designer based in
+        Yerevan, Armenia. I enjoy creating refined online experiences that
+        combine visual storytelling, usability, and thoughtful details.
       </p>
-      <a class="button" href="mailto:Melkonyannaira00@gmail.com">Contact me ↗</a>
-      <p class="contact-email">Melkonyannaira00@gmail.com</p>
+      <p>
+        From custom Shopify sections and landing pages to responsive layouts,
+        I focus on making every project feel distinctive, clear, and easy to use.
+      </p>
+      <div class="eyebrow" style="margin-top:28px">Languages</div>
+      <div class="language-list">
+        <span class="pill">Armenian</span>
+        <span class="pill">English</span>
+        <span class="pill">French</span>
+        <span class="pill">Russian</span>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="section skills-section" id="skills">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><div class="eyebrow">02 / My toolkit</div><h2>Skills & tools</h2></div>
+      <p>A combination of design sensibility, web technologies, and e-commerce thinking.</p>
+    </div>
+    <div class="skills-grid">
+      <article class="skill-card reveal"><div class="skill-icon">S</div><h3>Shopify</h3><p>Store setup and customization</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">Li</div><h3>Liquid</h3><p>Custom Shopify sections</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">HTML</div><h3>HTML5</h3><p>Semantic page structure</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">CSS</div><h3>CSS3</h3><p>Styling and animations</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">JS</div><h3>JavaScript</h3><p>Interactive experiences</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">↔</div><h3>Responsive Design</h3><p>Mobile-first layouts</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">GH</div><h3>GitHub</h3><p>Version control and publishing</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">UI</div><h3>UI / UX</h3><p>Usable, considered interfaces</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">LP</div><h3>Landing Pages</h3><p>Focused campaign pages</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">EC</div><h3>E-commerce</h3><p>Product and shopping journeys</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">✳</div><h3>Visual Design</h3><p>Typography and composition</p></article>
+      <article class="skill-card reveal"><div class="skill-icon">AI</div><h3>AI-assisted workflow</h3><p>Creative exploration and iteration</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><div class="eyebrow">03 / What I do</div><h2>Selected services</h2></div>
+      <p>Digital experiences made to feel polished, intuitive, and aligned with each brand.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal"><span class="service-number">01</span><h3>Shopify Development</h3><p>Theme customization, custom Liquid sections, product layouts, and storefront improvements.</p></article>
+      <article class="service-card reveal"><span class="service-number">02</span><h3>Web & Landing Design</h3><p>Elegant landing pages with clear hierarchy, responsive layouts, and thoughtful visual details.</p></article>
+      <article class="service-card reveal"><span class="service-number">03</span><h3>E-commerce Styling</h3><p>Product presentations, collections, banners, and shopping experiences designed for clarity.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section projects-section" id="projects">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><div class="eyebrow">04 / Selected work</div><h2>Projects & experiments</h2></div>
+      <p>A selection of Shopify storefronts and landing-page projects. Select a project to explore it.</p>
+    </div>
+    <div class="projects-grid">
+
+      <article class="project-card reveal">
+        <a class="project-image" href="https://naira-melqonyan-a461x7a1.myshopify.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/61_Cyme_Alezan-5277_2000x2800px_889b53a1-2ce6-44cf-93c1-75a12038a5b4.webp?v=1790679242" alt="Maison Bag luxury handbag project" loading="lazy">
+          <div class="project-overlay"><strong>Maison Bag</strong><span>Explore ↗</span></div>
+        </a>
+        <div class="project-info">
+          <div><h3>Luxury e-commerce storefront</h3><p>A fashion-inspired shopping experience.</p></div>
+          <div class="project-tags"><span>Shopify</span><span>Design</span></div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <a class="project-image" href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/the-private-sale" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/f91a73e3fb5f26ade5b60e27f1733203.jpg?v=1791198142" alt="The Private Sale landing page project" loading="lazy">
+          <div class="project-overlay"><strong>The Private Sale</strong><span>Explore ↗</span></div>
+        </a>
+        <div class="project-info">
+          <div><h3>Exclusive sale landing page</h3><p>A focused product campaign concept.</p></div>
+          <div class="project-tags"><span>Landing page</span><span>Liquid</span></div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <a class="project-image" href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/limited-offers" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/69_Cyme_Mini_Cremisi-5980_2000x2800px_ce2cef0d-97c7-43f0-935f-2645d8743295.webp?v=1793045329" alt="Limited Offers landing page project" loading="lazy">
+          <div class="project-overlay"><strong>Limited Offers</strong><span>Explore ↗</span></div>
+        </a>
+        <div class="project-info">
+          <div><h3>Limited-time campaign</h3><p>A product-led promotional page.</p></div>
+          <div class="project-tags"><span>Shopify</span><span>Campaign</span></div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <a class="project-image" href="https://naira-melqonyan-a461x7a1.myshopify.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/61_Cyme_Alezan-5277_2000x2800px_889b53a1-2ce6-44cf-93c1-75a12038a5b4.webp?v=1790679242" alt="Polène inspired product presentation" loading="lazy">
+          <div class="project-overlay"><strong>Product Storytelling</strong><span>Explore ↗</span></div>
+        </a>
+        <div class="project-info">
+          <div><h3>Product visual presentation</h3><p>Editorial imagery and refined product styling.</p></div>
+          <div class="project-tags"><span>Visual design</span><span>E-commerce</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section video-section" id="showcase">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><div class="eyebrow">05 / See it in motion</div><h2>Video showcase</h2></div>
+      <p>Take a closer look at the visual direction and experience behind my projects.</p>
+    </div>
+    <div class="video-grid">
+      <article class="video-card reveal">
+        <div class="video-frame">
+          <video controls playsinline preload="metadata" poster="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/61_Cyme_Alezan-5277_2000x2800px_889b53a1-2ce6-44cf-93c1-75a12038a5b4.webp?v=1790679242">
+            <source src="https://cdn.shopify.com/videos/c/o/v/a06f783830a1416b97d8be0c81825753.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+          </video>
+        </div>
+        <div class="video-caption"><h3>Maison Bag</h3><span>Store showcase</span></div>
+      </article>
+      <article class="video-card reveal">
+        <div class="video-frame">
+          <img src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/f91a73e3fb5f26ade5b60e27f1733203.jpg?v=1791198142" alt="The Private Sale visual preview" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="video-caption"><h3>The Private Sale</h3><span>Visual preview</span></div>
+      </article>
+    </div>
+    <p class="video-note">Only the Maison Bag video has been supplied so far. Send additional MP4 links later to add more playable project videos.</p>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><div class="eyebrow">06 / How I work</div><h2>From idea to launch</h2></div>
+      <p>A clear process helps each detail serve the bigger picture.</p>
+    </div>
+    <div class="process-grid">
+      <article class="process-step reveal"><span>01</span><h3>Discover</h3><p>Understand the brand, goals, audience, and project needs.</p></article>
+      <article class="process-step reveal"><span>02</span><h3>Design</h3><p>Shape the visual direction, structure, and user experience.</p></article>
+      <article class="process-step reveal"><span>03</span><h3>Develop</h3><p>Build the layout, style details, and responsive interactions.</p></article>
+      <article class="process-step reveal"><span>04</span><h3>Refine</h3><p>Review the result across screen sizes and polish the details.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section contact-section" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-copy reveal">
+      <div class="eyebrow">07 / Get in touch</div>
+      <h2>Have a project<br><em>in mind?</em></h2>
+      <p>Have a Shopify project, a design idea, or a collaboration in mind? Send me a message. I'd love to hear about it.</p>
+      <div class="contact-detail">
+        <small>Email</small>
+        <a href="mailto:Melkonyannaira00@gmail.com">Melkonyannaira00@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <small>Location</small>
+        <a href="https://maps.google.com/?q=Yerevan+Armenia" target="_blank" rel="noopener noreferrer">Yerevan, Armenia ↗</a>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" placeholder="Name" required>
+      </div>
+      <div class="form-field">
+        <label for="email">Your email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-field">
+        <label for="message">Tell me about your project</label>
+        <textarea id="message" name="message" placeholder="A little about what you have in mind..." required></textarea>
+      </div>
+      <button class="btn" type="submit">Prepare message ↗</button>
+      <p class="form-status" id="formStatus" aria-live="polite">This form opens your email app with your message prepared.</p>
+    </form>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="container footer-inner">
-    <span>© <span id="year"></span> Naira Melkonyan</span>
-    <span>Shopify Developer & Web Designer · Yerevan, Armenia</span>
+    <a href="#home" class="footer-logo">Naira<span style="color:#c7a47b">.</span></a>
+    <div class="footer-copy">© <span id="year"></span> Naira Melkonyan. Crafted with care.</div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
-menuToggle.addEventListener("click", function () {
+menuToggle.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("open");
   menuToggle.setAttribute("aria-expanded", String(isOpen));
-  menuToggle.textContent = isOpen ? "CLOSE ×" : "MENU ☰";
+  menuToggle.textContent = isOpen ? "×" : "☰";
 });
 
-navLinks.querySelectorAll("a").forEach(function (link) {
-  link.addEventListener("click", function () {
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
     navLinks.classList.remove("open");
     menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.textContent = "MENU ☰";
+    menuToggle.textContent = "☰";
   });
 });
 
-const revealItems = document.querySelectorAll(".reveal");
+document.getElementById("year").textContent = new Date().getFullYear();
 
-if ("IntersectionObserver" in window &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
-  revealItems.forEach(function (item) {
-    observer.observe(item);
-  });
-} else {
-  revealItems.forEach(function (item) {
-    item.classList.add("visible");
-  });
-}
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name || !email || !message) return;
+
+  const subject = encodeURIComponent("Portfolio inquiry from " + name);
+  const body = encodeURIComponent(
+    "Name: " + name + "\n" +
+    "Email: " + email + "\n\n" +
+    "Message:\n" + message
+  );
+
+  document.getElementById("formStatus").textContent =
+    "Your email app should open with your message. Please send it from there.";
+
+  window.location.href =
+    "mailto:Melkonyannaira00@gmail.com?subject=" + subject + "&body=" + body;
+});
 </script>
-
 </body>
 </html>
