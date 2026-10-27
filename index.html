@@ -1,1 +1,349 @@
+/**
+ * NAIRA MELKONYAN - PORTFOLIO
+ * Main JavaScript Functionality
+ */
 
+// ============================================
+// DOM ELEMENTS
+// ============================================
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-link');
+const skillsGrid = document.getElementById('skillsGrid');
+const projectsGrid = document.getElementById('projectsGrid');
+const showcaseGrid = document.getElementById('showcaseGrid');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const currentYearEl = document.getElementById('currentYear');
+
+// ============================================
+// INITIALIZATION
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    initNavigation();
+    initSkills();
+    initProjects();
+    initShowcase();
+    initScrollEffects();
+    initFilters();
+    updateYear();
+});
+
+// ============================================
+// NAVIGATION
+// ============================================
+function initNavigation() {
+    // Mobile menu toggle
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close mobile menu on link click
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// ============================================
+// SKILLS SECTION
+// ============================================
+function initSkills() {
+    if (!skillsGrid) return;
+
+    skillsGrid.innerHTML = '';
+
+    skillsData.categories.forEach(category => {
+        const categoryEl = document.createElement('div');
+        categoryEl.className = 'skill-category fade-in';
+        
+        const skillsHTML = category.skills.map(skill => `
+            <li class="skill-item">
+                <span>${skill.name}</span>
+                <span class="skill-level ${getSkillLevelClass(skill.level)}">
+                    ${getSkillLevelLabel(skill.level)}
+                </span>
+            </li>
+        `).join('');
+
+        categoryEl.innerHTML = `
+            <h3 class="skill-category-title">${category.icon} ${category.title}</h3>
+            <ul class="skill-list">
+                ${skillsHTML}
+            </ul>
+        `;
+
+        skillsGrid.appendChild(categoryEl);
+    });
+
+    // Trigger fade-in animation
+    observeElements();
+}
+
+// ============================================
+// PROJECTS SECTION
+// ============================================
+function initProjects() {
+    if (!projectsGrid) return;
+
+    renderProjects(projectsData);
+}
+
+function renderProjects(projects) {
+    projectsGrid.innerHTML = '';
+
+    const visibleProjects = projects.filter(project => !project.hidden);
+
+    if (visibleProjects.length === 0) {
+        projectsGrid.innerHTML = '<p class="no-projects">No projects to display.</p>';
+        return;
+    }
+
+    visibleProjects.forEach((project, index) => {
+        const projectEl = createProjectCard(project);
+        projectEl.classList.add('fade-in');
+        projectEl.style.animationDelay = `${index * 0.1}s`;
+        projectsGrid.appendChild(projectEl);
+    });
+
+    observeElements();
+}
+
+function createProjectCard(project) {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.dataset.category = project.category;
+    card.dataset.status = project.status.toLowerCase().replace(' ', '-');
+
+    const techTags = project.technologies.map(tech => 
+        `<span class="tech-tag">${tech}</span>`
+    ).join('');
+
+    const links = [];
+    if (project.liveUrl) {
+        links.push(`<a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-link">Live Site ↗</a>`);
+    }
+    if (project.caseStudyUrl) {
+        links.push(`<a href="${project.caseStudyUrl}" class="project-link">Case Study →</a>`);
+    }
+    if (project.githubUrl) {
+        links.push(`<a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="project-link">Code ↗</a>`);
+    }
+
+    const imageHTML = project.coverImage 
+        ? `<img src="${project.coverImage}" alt="${project.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+           <div class="project-placeholder" style="display:none;">${project.title}</div>`
+        : `<div class="project-placeholder">${project.title}</div>`;
+
+    card.innerHTML = `
+        <div class="project-image">
+            ${imageHTML}
+        </div>
+        <div class="project-content">
+            <span class="project-category">${project.categoryLabel}</span>
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-description">${project.description}</p>
+            <div class="project-meta">
+                <span class="project-status ${project.status === 'Completed' ? 'completed' : ''}">${project.status}</span>
+            </div>
+            <div class="project-tech">
+                ${techTags}
+            </div>
+            <div class="project-links">
+                ${links.join('')}
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
+// ============================================
+// PROJECT FILTERS
+// ============================================
+function initFilters() {
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter projects
+            const filter = btn.dataset.filter;
+            filterProjects(filter);
+        });
+    });
+}
+
+function filterProjects(filter) {
+    const cards = document.querySelectorAll('.project-card');
+
+    cards.forEach(card => {
+        const category = card.dataset.category;
+        const status = card.dataset.status;
+
+        if (filter === 'all') {
+            card.classList.remove('hidden');
+        } else if (filter === 'in-progress') {
+            if (status === 'in-progress') {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        } else {
+            if (category === filter) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        }
+    });
+}
+
+// ============================================
+// SHOWCASE SECTION
+// ============================================
+function initShowcase() {
+    if (!showcaseGrid) return;
+
+    if (showcaseData.length === 0) {
+        // Keep placeholder
+        return;
+    }
+
+    showcaseGrid.innerHTML = '';
+
+    showcaseData.forEach((item, index) => {
+        const showcaseEl = document.createElement('div');
+        showcaseEl.className = 'showcase-item fade-in';
+        showcaseEl.style.animationDelay = `${index * 0.1}s`;
+
+        showcaseEl.innerHTML = `
+            <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'">
+        `;
+
+        showcaseGrid.appendChild(showcaseEl);
+    });
+
+    observeElements();
+}
+
+// ============================================
+// SCROLL EFFECTS & ANIMATIONS
+// ============================================
+function initScrollEffects() {
+    // Observe elements for fade-in animation
+    observeElements();
+}
+
+function observeElements() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+function updateYear() {
+    if (currentYearEl) {
+        currentYearEl.textContent = new Date().getFullYear();
+    }
+}
+
+// ============================================
+// PROJECT MANAGEMENT HELPERS
+// ============================================
+
+/**
+ * Add a new project to the portfolio
+ * @param {Object} project - Project data object
+ */
+function addProject(project) {
+    projectsData.push(project);
+    renderProjects(projectsData);
+}
+
+/**
+ * Update an existing project
+ * @param {string} projectId - The project ID to update
+ * @param {Object} updates - Fields to update
+ */
+function updateProject(projectId, updates) {
+    const index = projectsData.findIndex(p => p.id === projectId);
+    if (index !== -1) {
+        projectsData[index] = { ...projectsData[index], ...updates };
+        renderProjects(projectsData);
+    }
+}
+
+/**
+ * Remove a project
+ * @param {string} projectId - The project ID to remove
+ */
+function removeProject(projectId) {
+    const index = projectsData.findIndex(p => p.id === projectId);
+    if (index !== -1) {
+        projectsData.splice(index, 1);
+        renderProjects(projectsData);
+    }
+}
+
+// Export functions for console access
+window.PortfolioManager = {
+    addProject,
+    updateProject,
+    removeProject,
+    projectsData,
+    skillsData,
+    showcaseData
+};
+
+console.log('Portfolio initialized. Use window.PortfolioManager to manage projects.');
