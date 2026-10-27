@@ -1,349 +1,493 @@
-/**
- * NAIRA MELKONYAN - PORTFOLIO
- * Main JavaScript Functionality
- */
 
-// ============================================
-// DOM ELEMENTS
-// ============================================
-const navbar = document.getElementById('navbar');
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-link');
-const skillsGrid = document.getElementById('skillsGrid');
-const projectsGrid = document.getElementById('projectsGrid');
-const showcaseGrid = document.getElementById('showcaseGrid');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const currentYearEl = document.getElementById('currentYear');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Naira Melkonyan — Shopify Developer and Web Designer based in Yerevan, Armenia.">
+  <meta name="theme-color" content="#211712">
+  <title>Naira Melkonyan — Shopify Developer & Web Designer</title>
 
-// ============================================
-// INITIALIZATION
-// ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    initNavigation();
-    initSkills();
-    initProjects();
-    initShowcase();
-    initScrollEffects();
-    initFilters();
-    updateYear();
-});
-
-// ============================================
-// NAVIGATION
-// ============================================
-function initNavigation() {
-    // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-    });
-
-    // Close mobile menu on link click
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-}
-
-// ============================================
-// SKILLS SECTION
-// ============================================
-function initSkills() {
-    if (!skillsGrid) return;
-
-    skillsGrid.innerHTML = '';
-
-    skillsData.categories.forEach(category => {
-        const categoryEl = document.createElement('div');
-        categoryEl.className = 'skill-category fade-in';
-        
-        const skillsHTML = category.skills.map(skill => `
-            <li class="skill-item">
-                <span>${skill.name}</span>
-                <span class="skill-level ${getSkillLevelClass(skill.level)}">
-                    ${getSkillLevelLabel(skill.level)}
-                </span>
-            </li>
-        `).join('');
-
-        categoryEl.innerHTML = `
-            <h3 class="skill-category-title">${category.icon} ${category.title}</h3>
-            <ul class="skill-list">
-                ${skillsHTML}
-            </ul>
-        `;
-
-        skillsGrid.appendChild(categoryEl);
-    });
-
-    // Trigger fade-in animation
-    observeElements();
-}
-
-// ============================================
-// PROJECTS SECTION
-// ============================================
-function initProjects() {
-    if (!projectsGrid) return;
-
-    renderProjects(projectsData);
-}
-
-function renderProjects(projects) {
-    projectsGrid.innerHTML = '';
-
-    const visibleProjects = projects.filter(project => !project.hidden);
-
-    if (visibleProjects.length === 0) {
-        projectsGrid.innerHTML = '<p class="no-projects">No projects to display.</p>';
-        return;
+  <style>
+    :root {
+      --brown: #211712;
+      --cream: #f5f1eb;
+      --muted: #a89b8d;
+      --white: #fffdf9;
     }
 
-    visibleProjects.forEach((project, index) => {
-        const projectEl = createProjectCard(project);
-        projectEl.classList.add('fade-in');
-        projectEl.style.animationDelay = `${index * 0.1}s`;
-        projectsGrid.appendChild(projectEl);
-    });
-
-    observeElements();
-}
-
-function createProjectCard(project) {
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.dataset.category = project.category;
-    card.dataset.status = project.status.toLowerCase().replace(' ', '-');
-
-    const techTags = project.technologies.map(tech => 
-        `<span class="tech-tag">${tech}</span>`
-    ).join('');
-
-    const links = [];
-    if (project.liveUrl) {
-        links.push(`<a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-link">Live Site ↗</a>`);
-    }
-    if (project.caseStudyUrl) {
-        links.push(`<a href="${project.caseStudyUrl}" class="project-link">Case Study →</a>`);
-    }
-    if (project.githubUrl) {
-        links.push(`<a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="project-link">Code ↗</a>`);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    const imageHTML = project.coverImage 
-        ? `<img src="${project.coverImage}" alt="${project.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-           <div class="project-placeholder" style="display:none;">${project.title}</div>`
-        : `<div class="project-placeholder">${project.title}</div>`;
+    html { scroll-behavior: smooth; }
 
-    card.innerHTML = `
-        <div class="project-image">
-            ${imageHTML}
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1180px, 90%);
+      margin: auto;
+    }
+
+    header {
+      padding: 25px 0;
+      border-bottom: 1px solid #21171220;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+    }
+
+    .nav-links a:hover { opacity: .6; }
+
+    .hero {
+      min-height: 83vh;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 70px;
+      padding: 75px 0;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #8d7767;
+      margin-bottom: 24px;
+    }
+
+    h1, h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 90px);
+      letter-spacing: -3px;
+    }
+
+    h1 em {
+      color: #9c806b;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      max-width: 460px;
+      margin: 28px 0;
+      color: #665950;
+      font-size: 16px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 15px 25px;
+      background: var(--brown);
+      color: var(--cream);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: .25s;
+    }
+
+    .button:hover {
+      background: #594334;
+      transform: translateY(-2px);
+    }
+
+    .portrait-wrap {
+      max-width: 410px;
+      justify-self: end;
+      width: 100%;
+      position: relative;
+    }
+
+    .portrait {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      background: #e5dcd1;
+    }
+
+    .portrait-caption {
+      padding-top: 14px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #77675b;
+    }
+
+    section { padding: 100px 0; }
+
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      color: #8d7767;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 5vw, 62px);
+      margin-bottom: 25px;
+    }
+
+    .about {
+      background: var(--brown);
+      color: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 80px;
+    }
+
+    .about p {
+      color: #d1c4b7;
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 45px;
+    }
+
+    .skill-card {
+      border: 1px solid #21171225;
+      padding: 25px 20px;
+      min-height: 170px;
+    }
+
+    .skill-card h3 {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .skill-card p {
+      color: #71635a;
+      font-size: 13px;
+    }
+
+    .projects {
+      background: #ece5dc;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .project-card {
+      background: var(--cream);
+      padding-bottom: 25px;
+    }
+
+    .project-image {
+      min-height: 250px;
+      aspect-ratio: 16 / 10;
+      display: grid;
+      place-items: center;
+      background: #d8c9b9;
+      color: var(--brown);
+      font-family: Georgia, serif;
+      font-size: clamp(24px, 4vw, 40px);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .project-info { padding: 22px 24px 0; }
+
+    .project-info h3 {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    .project-info p {
+      color: #71635a;
+      font-size: 13px;
+      margin: 7px 0 15px;
+    }
+
+    .project-link {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid;
+      padding-bottom: 4px;
+    }
+
+    .contact {
+      background: var(--brown);
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .contact p {
+      color: #d1c4b7;
+      margin: 0 auto 28px;
+      max-width: 520px;
+    }
+
+    .contact .button {
+      background: var(--cream);
+      color: var(--brown);
+    }
+
+    footer {
+      padding: 25px 0;
+      background: var(--brown);
+      color: #c8b9aa;
+      border-top: 1px solid #ffffff20;
+      font-size: 11px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        padding: 65px 0;
+      }
+
+      .portrait-wrap {
+        justify-self: start;
+        max-width: 460px;
+      }
+
+      .about-grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+
+      section { padding: 70px 0; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { gap: 12px; font-size: 11px; }
+      .logo { font-size: 16px; letter-spacing: 1px; }
+      h1 { letter-spacing: -1.5px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .skill-card { padding: 18px 13px; }
+      .skill-card h3 { font-size: 17px; }
+      .project-image { min-height: 200px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a class="logo" href="#home">NAIRA MELKONYAN</a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
         </div>
-        <div class="project-content">
-            <span class="project-category">${project.categoryLabel}</span>
-            <h3 class="project-title">${project.title}</h3>
-            <p class="project-description">${project.description}</p>
-            <div class="project-meta">
-                <span class="project-status ${project.status === 'Completed' ? 'completed' : ''}">${project.status}</span>
-            </div>
-            <div class="project-tech">
-                ${techTags}
-            </div>
-            <div class="project-links">
-                ${links.join('')}
-            </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div>
+        <p class="eyebrow">Shopify Developer · Web Designer</p>
+        <h1>Designing digital<br>experiences with<br><em>intention.</em></h1>
+        <p class="hero-description">
+          I create thoughtful, elegant and user-friendly digital
+          experiences, combining e-commerce functionality with
+          a refined visual approach.
+        </p>
+        <a class="button" href="#projects">Explore my work ↗</a>
+      </div>
+
+      <div class="portrait-wrap">
+        <img
+          class="portrait"
+          src="https://cdn.shopify.com/s/files/1/0855/6190/1298/files/photo_2026-10-27_06-21-14.jpg?v=1793108562"
+          alt="Naira Melkonyan"
+          onerror="this.style.display='none'; this.nextElementSibling.hidden=false;"
+        >
+        <div hidden class="project-image">Naira Melkonyan</div>
+        <p class="portrait-caption">Based in Yerevan, Armenia</p>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div>
+          <p class="section-label">01 / About me</p>
+          <h2>A thoughtful approach to digital design.</h2>
         </div>
-    `;
+        <div>
+          <p>
+            I'm Naira Melkonyan, a Shopify Developer and Web Designer
+            based in Yerevan, Armenia. I'm interested in creating
+            refined online stores and digital experiences that bring
+            together visual storytelling, usability and functionality.
+          </p>
+          <p>
+            My approach is inspired by editorial design, considered
+            typography, balanced layouts and the details that make a
+            website feel distinctive.
+          </p>
+          <p><strong>Languages:</strong> Armenian, English, French and Russian.</p>
+        </div>
+      </div>
+    </section>
 
-    return card;
-}
+    <section id="skills">
+      <div class="container">
+        <p class="section-label">02 / Expertise</p>
+        <h2>Skills & capabilities</h2>
+        <p>My current areas of focus across e-commerce and web design.</p>
 
-// ============================================
-// PROJECT FILTERS
-// ============================================
-function initFilters() {
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update active state
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>Shopify</h3>
+            <p>Theme customization, store setup, product pages, collections, landing pages and app integration.</p>
+          </article>
+          <article class="skill-card">
+            <h3>Web Development</h3>
+            <p>HTML, CSS, responsive layouts, JavaScript fundamentals and interactive elements.</p>
+          </article>
+          <article class="skill-card">
+            <h3>UI / UX Design</h3>
+            <p>Visual hierarchy, typography, layout, navigation and e-commerce user experience.</p>
+          </article>
+          <article class="skill-card">
+            <h3>Visual Design</h3>
+            <p>Luxury-inspired aesthetics, product presentation, image-led layouts and visual storytelling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            // Filter projects
-            const filter = btn.dataset.filter;
-            filterProjects(filter);
-        });
-    });
-}
+    <section class="projects" id="projects">
+      <div class="container">
+        <p class="section-label">03 / Selected work</p>
+        <h2>Projects with a point of view.</h2>
+        <p>A selection of Shopify store and landing page projects.</p>
 
-function filterProjects(filter) {
-    const cards = document.querySelectorAll('.project-card');
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-image">MAISON BAG</div>
+            <div class="project-info">
+              <h3>Maison Bag</h3>
+              <p>Luxury accessories · Shopify store</p>
+              <a class="project-link"
+                 href="https://naira-melqonyan-a461x7a1.myshopify.com/"
+                 target="_blank" rel="noopener noreferrer">
+                View project ↗
+              </a>
+            </div>
+          </article>
 
-    cards.forEach(card => {
-        const category = card.dataset.category;
-        const status = card.dataset.status;
+          <article class="project-card">
+            <div class="project-image">THE PRIVATE SALE</div>
+            <div class="project-info">
+              <h3>The Private Sale</h3>
+              <p>Luxury sale · Landing page</p>
+              <a class="project-link"
+                 href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/the-private-sale"
+                 target="_blank" rel="noopener noreferrer">
+                View project ↗
+              </a>
+            </div>
+          </article>
 
-        if (filter === 'all') {
-            card.classList.remove('hidden');
-        } else if (filter === 'in-progress') {
-            if (status === 'in-progress') {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        } else {
-            if (category === filter) {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        }
-    });
-}
+          <article class="project-card">
+            <div class="project-image">LIMITED OFFERS</div>
+            <div class="project-info">
+              <h3>Limited Offers</h3>
+              <p>Promotional concept · Shopify page</p>
+              <a class="project-link"
+                 href="https://naira-melqonyan-a461x7a1.myshopify.com/pages/limited-offers"
+                 target="_blank" rel="noopener noreferrer">
+                View project ↗
+              </a>
+            </div>
+          </article>
 
-// ============================================
-// SHOWCASE SECTION
-// ============================================
-function initShowcase() {
-    if (!showcaseGrid) return;
+          <article class="project-card">
+            <div class="project-image">YOUR NEXT PROJECT</div>
+            <div class="project-info">
+              <h3>More coming soon</h3>
+              <p>New ideas and digital experiences in progress.</p>
+              <a class="project-link" href="#contact">Work with me ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    if (showcaseData.length === 0) {
-        // Keep placeholder
-        return;
-    }
+    <section class="contact" id="contact">
+      <div class="container">
+        <p class="section-label">04 / Get in touch</p>
+        <h2>Let's create something<br>meaningful.</h2>
+        <p>
+          Have a project in mind or want to collaborate?
+          I'd love to hear from you.
+        </p>
+        <a class="button" href="mailto:Melkonyannaira00@gmail.com">
+          Contact me ↗
+        </a>
+      </div>
+    </section>
+  </main>
 
-    showcaseGrid.innerHTML = '';
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Naira Melkonyan</span>
+      <span>Shopify Developer & Web Designer · Yerevan, Armenia</span>
+    </div>
+  </footer>
 
-    showcaseData.forEach((item, index) => {
-        const showcaseEl = document.createElement('div');
-        showcaseEl.className = 'showcase-item fade-in';
-        showcaseEl.style.animationDelay = `${index * 0.1}s`;
-
-        showcaseEl.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'">
-        `;
-
-        showcaseGrid.appendChild(showcaseEl);
-    });
-
-    observeElements();
-}
-
-// ============================================
-// SCROLL EFFECTS & ANIMATIONS
-// ============================================
-function initScrollEffects() {
-    // Observe elements for fade-in animation
-    observeElements();
-}
-
-function observeElements() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
-function updateYear() {
-    if (currentYearEl) {
-        currentYearEl.textContent = new Date().getFullYear();
-    }
-}
-
-// ============================================
-// PROJECT MANAGEMENT HELPERS
-// ============================================
-
-/**
- * Add a new project to the portfolio
- * @param {Object} project - Project data object
- */
-function addProject(project) {
-    projectsData.push(project);
-    renderProjects(projectsData);
-}
-
-/**
- * Update an existing project
- * @param {string} projectId - The project ID to update
- * @param {Object} updates - Fields to update
- */
-function updateProject(projectId, updates) {
-    const index = projectsData.findIndex(p => p.id === projectId);
-    if (index !== -1) {
-        projectsData[index] = { ...projectsData[index], ...updates };
-        renderProjects(projectsData);
-    }
-}
-
-/**
- * Remove a project
- * @param {string} projectId - The project ID to remove
- */
-function removeProject(projectId) {
-    const index = projectsData.findIndex(p => p.id === projectId);
-    if (index !== -1) {
-        projectsData.splice(index, 1);
-        renderProjects(projectsData);
-    }
-}
-
-// Export functions for console access
-window.PortfolioManager = {
-    addProject,
-    updateProject,
-    removeProject,
-    projectsData,
-    skillsData,
-    showcaseData
-};
-
-console.log('Portfolio initialized. Use window.PortfolioManager to manage projects.');
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
